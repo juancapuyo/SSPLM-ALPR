@@ -77,10 +77,3 @@ class RodoSolDataset(torch.utils.data.Dataset):
                 else:
                     label_info[key] = value
         return label_info
-
-# Example usage:
-if __name__ == "__main__":
-    data_dir = '../data/RodoSol-ALPR/'
-    dataset = RodoSolDataset(data_dir)
-    print(len(dataset))
-    print(pd.read_csv(dataset.annotations_file).head(30))
