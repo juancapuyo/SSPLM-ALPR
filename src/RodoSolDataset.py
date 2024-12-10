@@ -3,9 +3,6 @@ import pandas as pd
 import torch
 from torchvision.io import read_image
 
-import torch
-from torchvision.io import read_image
-
 class RodoSolDataset(torch.utils.data.Dataset):
     def __init__(self, data_dir, annotations_file='annotations.csv', transform=None, target_transform=None):
         self.data_dir = data_dir
