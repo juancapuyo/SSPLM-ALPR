@@ -49,6 +49,8 @@ class RodoSolDataset(torch.utils.data.Dataset):
                     if os.path.exists(img_path):
                         label_info = self.parse_label_file(label_path)
                         label_info['image'] = img_path
+                        corners =  self.map_corners(label_info["corners"])
+                        label_info['corners'] = corners
                         annotations.append(label_info)
         return pd.DataFrame(annotations)
 
@@ -74,3 +76,16 @@ class RodoSolDataset(torch.utils.data.Dataset):
                 else:
                     label_info[key] = value
         return label_info
+    
+    def map_corners(self, corners):
+        x_coords, y_coords = zip(*corners)
+        x_min, x_max = min(x_coords), max(x_coords)
+        y_min, y_max = min(y_coords), max(y_coords)
+        width = x_max - x_min
+        height = y_max - y_min
+        box = [x_min, y_min, width, height]
+
+        return box
+    
+if __name__ == "__main__":
+    dataset = RodoSolDataset(data_dir="data/RodoSol-ALPR")
